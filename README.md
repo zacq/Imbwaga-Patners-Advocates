@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Imbwaga, Yogo & Partners Advocates (`iypadvocates.com`)
 
-## Getting Started
+Compliant, mobile-first Next.js App Router website, consultation intake system, and CMS/Enquiry Inbox for **Imbwaga, Yogo & Partners Advocates** (Gate House, 6th Floor, Suite 603, Mburu Gichua Road, Nakuru).
 
-First, run the development server:
+## Key Features
+
+- **LSK Advertising Compliance (Legal Notice 42 of 2014)**:
+  - No advocate photographs anywhere (monogram name cards only).
+  - No client names, logos, testimonials, outcome claims, `"free consultation"` offers, or superlatives.
+  - Built-in CMS pre-publish 6-point checklist (`CP-1`), automated prohibited wording scanner, and Partner-only publishing lock (`CP-3`).
+  - Site-wide disclaimer (`CP-4`) and Kenya Data Protection Act, 2019 privacy notice.
+- **12 Areas of Practice**: Standardized 8-section pages (`/areas-of-practice/[slug]`) with `LegalService` JSON-LD structured data and SEO metadata.
+- **Mobile-First Intake**: Sticky bottom `WhatsApp | Call | Request` bar, 48px+ tap targets, and one-handed consultation request form (`/request-consultation`) capturing conflict-check details (`otherParty`).
+- **2FA Staff CMS & Enquiry Inbox (`/admin`)**:
+  - Demo Partner login: `grace@iypadvocates.com` / PIN `2017`
+  - Demo Associate login (draft-only): `amina@iypadvocates.com` / PIN `1234`
+  - Includes conflict-hint detection, >1h overdue flagging, status workflow, CSV export, DPA 2019 deletion, reporting (`RP-1`–`RP-4`), and audit logging.
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploying on Netlify
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This repository includes `netlify.toml` configured for Next.js (`npm run build`, `.next` publish directory, Node 22, and security headers).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Connect `https://github.com/zacq/Imbwaga-Patners-Advocates.git` in Netlify (`Add new site` -> `Import an existing project`).
+2. Netlify will automatically detect Next.js and use `netlify.toml`.
+3. Note: Serverless storage in `src/lib/store.ts` automatically falls back to `os.tmpdir()` and in-memory caching when running on Netlify's read-only deployment filesystem. For permanent multi-instance persistence in production, connect a Supabase/Postgres database using the schema in `src/lib/types.ts`.
