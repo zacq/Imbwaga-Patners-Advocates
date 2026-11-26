@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
 import { readStore } from "@/lib/store";
 import { SITE_DISCLAIMER } from "@/lib/compliance";
+import { getAreaImage } from "@/lib/images";
 import { PageViewTracker, TrackedWhatsAppButton } from "@/components/TrackedLinks";
 
 export const dynamic = "force-dynamic";
@@ -39,6 +41,7 @@ export default async function InsightDetailPage({
   const primaryAreaSlug = ins.areaTags[0];
   const primaryArea = store.practiceAreas.find((a) => a.slug === primaryAreaSlug);
   const authorAdvocate = store.advocates.find((a) => a.id === ins.authorId);
+  const coverImage = getAreaImage(primaryAreaSlug);
 
   return (
     <article className="mx-auto max-w-3xl px-4 sm:px-6 py-12 space-y-8">
@@ -88,6 +91,17 @@ export default async function InsightDetailPage({
           </span>
         </div>
       </header>
+
+      <div className="relative h-56 sm:h-72 w-full rounded-lg overflow-hidden border border-[#E4DFD5]">
+        <Image
+          src={coverImage.src}
+          alt={coverImage.alt}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 768px"
+          className="object-cover"
+        />
+      </div>
 
       <div className="space-y-5 text-base leading-relaxed text-[#243946]">
         {ins.body.map((para, idx) => (

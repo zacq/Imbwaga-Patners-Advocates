@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Clock, Languages } from "lucide-react";
 import { readStore } from "@/lib/store";
 import { FIRM_CONTACT, SITE_DISCLAIMER } from "@/lib/compliance";
+import { APPROVED_IMAGES } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "About the Firm",
@@ -27,6 +29,38 @@ export default function AboutPage() {
         <p className="text-base sm:text-lg text-[#3D5260] leading-relaxed max-w-3xl">
           {store.firm.aboutIntro}
         </p>
+      </div>
+
+      {/* Approved Chambers & Legal Library Visuals (CP-2) */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <figure className="rounded-lg overflow-hidden border border-[#E4DFD5] bg-white">
+          <div className="relative h-56 w-full">
+            <Image
+              src={APPROVED_IMAGES.heroChambers.src}
+              alt={APPROVED_IMAGES.heroChambers.alt}
+              fill
+              sizes="(max-width: 640px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+          <figcaption className="px-4 py-2.5 text-xs text-[#4A5E6B]">
+            {APPROVED_IMAGES.heroChambers.caption}
+          </figcaption>
+        </figure>
+        <figure className="rounded-lg overflow-hidden border border-[#E4DFD5] bg-white">
+          <div className="relative h-56 w-full">
+            <Image
+              src={APPROVED_IMAGES.legalLibrary.src}
+              alt={APPROVED_IMAGES.legalLibrary.alt}
+              fill
+              sizes="(max-width: 640px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+          <figcaption className="px-4 py-2.5 text-xs text-[#4A5E6B]">
+            {APPROVED_IMAGES.legalLibrary.caption}
+          </figcaption>
+        </figure>
       </div>
 
       <section className="grid gap-8 md:grid-cols-12">

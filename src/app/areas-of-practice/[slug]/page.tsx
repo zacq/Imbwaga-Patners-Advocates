@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CheckCircle2, FileText, BookOpen, HelpCircle } from "lucide-react";
 import { readStore } from "@/lib/store";
 import { FIRM_CONTACT, SITE_DISCLAIMER } from "@/lib/compliance";
+import { getAreaImage } from "@/lib/images";
 import {
   TrackedWhatsAppButton,
   TrackedCallButton,
@@ -43,6 +45,7 @@ export default async function PracticeAreaDetailPage({
     notFound();
   }
 
+  const heroImage = getAreaImage(area.slug);
   const relatedFaqs = store.faqs.filter(
     (f) => f.status === "published" && (f.areaSlug === area.slug || f.areaSlug === "general")
   );
@@ -84,36 +87,49 @@ export default async function PracticeAreaDetailPage({
         <span>All 12 Areas of Practice</span>
       </Link>
 
-      {/* 1. Heading & one-sentence factual summary */}
-      <header className="border-b border-[#E4DFD5] pb-8 space-y-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6E5525]">
-          Area of Practice {String(area.number).padStart(2, "0")}
-        </p>
-        <h1 className="font-serif text-3xl sm:text-4xl font-medium text-[#102430]">
-          {area.name}
-        </h1>
-        <p className="text-base sm:text-lg text-[#3D5260] leading-relaxed max-w-3xl">
-          {area.summary}
-        </p>
+      {/* 1. Heading & one-sentence factual summary + approved visual */}
+      <header className="grid gap-8 md:grid-cols-12 items-center border-b border-[#E4DFD5] pb-8">
+        <div className="md:col-span-7 space-y-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6E5525]">
+            Area of Practice {String(area.number).padStart(2, "0")}
+          </p>
+          <h1 className="font-serif text-3xl sm:text-4xl font-medium text-[#102430]">
+            {area.name}
+          </h1>
+          <p className="text-base sm:text-lg text-[#3D5260] leading-relaxed">{area.summary}</p>
 
-        <div className="pt-2 flex flex-wrap gap-3">
-          <Link
-            href={`/request-consultation?area=${encodeURIComponent(area.slug)}`}
-            className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded bg-[#102430] text-white text-sm font-semibold hover:bg-[#1B394B]"
-          >
-            <span>Request a consultation</span>
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-          <TrackedWhatsAppButton
-            areaName={area.name}
-            areaSlug={area.slug}
-            page={`/areas-of-practice/${area.slug}`}
-            label="WhatsApp about this area"
-          />
-          <TrackedCallButton
-            areaSlug={area.slug}
-            page={`/areas-of-practice/${area.slug}`}
-          />
+          <div className="pt-2 flex flex-wrap gap-3">
+            <Link
+              href={`/request-consultation?area=${encodeURIComponent(area.slug)}`}
+              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded bg-[#102430] text-white text-sm font-semibold hover:bg-[#1B394B]"
+            >
+              <span>Request a consultation</span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <TrackedWhatsAppButton
+              areaName={area.name}
+              areaSlug={area.slug}
+              page={`/areas-of-practice/${area.slug}`}
+              label="WhatsApp about this area"
+            />
+            <TrackedCallButton
+              areaSlug={area.slug}
+              page={`/areas-of-practice/${area.slug}`}
+            />
+          </div>
+        </div>
+
+        <div className="md:col-span-5">
+          <div className="relative h-52 sm:h-60 rounded-lg overflow-hidden border border-[#E4DFD5]">
+            <Image
+              src={heroImage.src}
+              alt={heroImage.alt}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </header>
 

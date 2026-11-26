@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { BookOpen, ArrowRight } from "lucide-react";
 import type { Insight, PracticeArea } from "@/lib/types";
+import { getAreaImage } from "@/lib/images";
 
 export function InsightsFilterList({
   insights,
@@ -56,42 +58,56 @@ export function InsightsFilterList({
 
       {/* Articles */}
       <div className="grid gap-5 md:grid-cols-2">
-        {filtered.map((ins) => (
-          <Link
-            key={ins.id}
-            href={`/insights/${ins.slug}`}
-            className="group rounded-lg border border-[#E4DFD5] bg-white p-6 hover:border-[#9A7B3E] transition-colors flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-2 text-xs text-[#6E5525] font-medium">
-                {ins.areaTags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded bg-[#FAF8F4] border border-[#E4DFD5] px-2.5 py-0.5"
-                  >
-                    {areaNameMap.get(tag) || tag}
-                  </span>
-                ))}
-              </div>
-              <h2 className="font-serif text-xl font-medium text-[#102430] group-hover:text-[#6E5525]">
-                {ins.title}
-              </h2>
-              <p className="text-sm text-[#4A5E6B] leading-relaxed">{ins.excerpt}</p>
-            </div>
-
-            <div className="pt-4 border-t border-[#E4DFD5] flex items-center justify-between text-xs text-[#5B6D78]">
+        {filtered.map((ins) => {
+          const cover = getAreaImage(ins.areaTags[0]);
+          return (
+            <Link
+              key={ins.id}
+              href={`/insights/${ins.slug}`}
+              className="group rounded-lg border border-[#E4DFD5] bg-white overflow-hidden hover:border-[#9A7B3E] transition-colors flex flex-col justify-between"
+            >
               <div>
-                <span className="font-semibold text-[#102430]">{ins.authorName}</span>
-                <span className="block">{ins.authorProfession}</span>
+                <div className="relative h-44 w-full border-b border-[#E4DFD5]">
+                  <Image
+                    src={cover.src}
+                    alt={cover.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 space-y-3">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-[#6E5525] font-medium">
+                    {ins.areaTags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded bg-[#FAF8F4] border border-[#E4DFD5] px-2.5 py-0.5"
+                      >
+                        {areaNameMap.get(tag) || tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h2 className="font-serif text-xl font-medium text-[#102430] group-hover:text-[#6E5525]">
+                    {ins.title}
+                  </h2>
+                  <p className="text-sm text-[#4A5E6B] leading-relaxed">{ins.excerpt}</p>
+                </div>
               </div>
-              <span className="inline-flex items-center gap-1 font-semibold text-[#102430]">
-                <BookOpen className="h-3.5 w-3.5 text-[#9A7B3E]" aria-hidden="true" />
-                {ins.readingTimeMinutes} min · {ins.publishedAt}
-                <ArrowRight className="h-3.5 w-3.5 ml-1" aria-hidden="true" />
-              </span>
-            </div>
-          </Link>
-        ))}
+
+              <div className="mx-6 mb-6 pt-4 border-t border-[#E4DFD5] flex items-center justify-between text-xs text-[#5B6D78]">
+                <div>
+                  <span className="font-semibold text-[#102430]">{ins.authorName}</span>
+                  <span className="block">{ins.authorProfession}</span>
+                </div>
+                <span className="inline-flex items-center gap-1 font-semibold text-[#102430]">
+                  <BookOpen className="h-3.5 w-3.5 text-[#9A7B3E]" aria-hidden="true" />
+                  {ins.readingTimeMinutes} min · {ins.publishedAt}
+                  <ArrowRight className="h-3.5 w-3.5 ml-1" aria-hidden="true" />
+                </span>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

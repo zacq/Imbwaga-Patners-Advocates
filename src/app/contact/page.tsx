@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { MapPin, Clock, Mail, Languages, ArrowUpRight } from "lucide-react";
 import { readStore } from "@/lib/store";
 import { FIRM_CONTACT, SITE_DISCLAIMER } from "@/lib/compliance";
+import { APPROVED_IMAGES } from "@/lib/images";
 import { TrackedWhatsAppButton, TrackedCallButton } from "@/components/TrackedLinks";
 import { GeneralEnquiryForm } from "@/components/GeneralEnquiryForm";
 
@@ -36,45 +38,57 @@ export default function ContactPage() {
 
       <div className="grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-5 space-y-6">
-          <div className="rounded-lg border border-[#E4DFD5] bg-white p-6 space-y-5">
-            <h2 className="font-serif text-2xl font-medium text-[#102430]">Office Details</h2>
-
-            <div className="space-y-4 text-sm text-[#3D5260]">
-              <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
-                <div>
-                  <strong className="block text-[#102430]">Address</strong>
-                  <span>{FIRM_CONTACT.address}</span>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Clock className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
-                <div>
-                  <strong className="block text-[#102430]">Business Hours</strong>
-                  <span>{store.firm.hours}</span>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Languages className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
-                <div>
-                  <strong className="block text-[#102430]">Languages of Business</strong>
-                  <span>{store.firm.languages}</span>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Mail className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
-                <div>
-                  <strong className="block text-[#102430]">Email</strong>
-                  <a href={`mailto:${FIRM_CONTACT.email}`} className="underline text-[#102430]">
-                    {FIRM_CONTACT.email}
-                  </a>
-                </div>
-              </div>
+          <div className="rounded-lg border border-[#E4DFD5] bg-white overflow-hidden">
+            <div className="relative h-48 w-full border-b border-[#E4DFD5]">
+              <Image
+                src={APPROVED_IMAGES.nakuruOffice.src}
+                alt={APPROVED_IMAGES.nakuruOffice.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
+              />
             </div>
 
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 pt-2">
-              <TrackedCallButton page="/contact" />
-              <TrackedWhatsAppButton page="/contact" label="WhatsApp Chambers" />
+            <div className="p-6 space-y-5">
+              <h2 className="font-serif text-2xl font-medium text-[#102430]">Office Details</h2>
+
+              <div className="space-y-4 text-sm text-[#3D5260]">
+                <div className="flex items-start gap-3">
+                  <MapPin className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
+                  <div>
+                    <strong className="block text-[#102430]">Address</strong>
+                    <span>{FIRM_CONTACT.address}</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Clock className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
+                  <div>
+                    <strong className="block text-[#102430]">Business Hours</strong>
+                    <span>{store.firm.hours}</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Languages className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
+                  <div>
+                    <strong className="block text-[#102430]">Languages of Business</strong>
+                    <span>{store.firm.languages}</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Mail className="h-4 w-4 text-[#9A7B3E] shrink-0 mt-1" aria-hidden="true" />
+                  <div>
+                    <strong className="block text-[#102430]">Email</strong>
+                    <a href={`mailto:${FIRM_CONTACT.email}`} className="underline text-[#102430]">
+                      {FIRM_CONTACT.email}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 pt-2">
+                <TrackedCallButton page="/contact" />
+                <TrackedWhatsAppButton page="/contact" label="WhatsApp Chambers" />
+              </div>
             </div>
           </div>
 

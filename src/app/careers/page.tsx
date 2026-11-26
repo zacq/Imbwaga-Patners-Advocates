@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { readStore } from "@/lib/store";
+import { APPROVED_IMAGES } from "@/lib/images";
 import { CareerApplicationForm } from "@/components/CareerApplicationForm";
 
 export const metadata: Metadata = {
@@ -17,18 +19,32 @@ export default function CareersPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-12 space-y-10">
-      <div className="border-b border-[#E4DFD5] pb-8 space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6E5525]">
-          Careers &amp; Pupillage
-        </p>
-        <h1 className="font-serif text-3xl sm:text-4xl font-medium text-[#102430]">
-          Pupillage &amp; Opportunities in Nakuru
-        </h1>
-        <p className="text-base text-[#3D5260] max-w-3xl leading-relaxed">
-          Imbwaga, Yogo &amp; Partners Advocates welcomes applications from Kenya School of Law
-          graduates, legal clerks, and advocates interested in litigation and conveyancing practice
-          in Nakuru.
-        </p>
+      <div className="grid gap-8 md:grid-cols-12 items-center border-b border-[#E4DFD5] pb-8">
+        <div className="md:col-span-7 space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6E5525]">
+            Careers &amp; Pupillage
+          </p>
+          <h1 className="font-serif text-3xl sm:text-4xl font-medium text-[#102430]">
+            Pupillage &amp; Opportunities in Nakuru
+          </h1>
+          <p className="text-base text-[#3D5260] leading-relaxed">
+            Imbwaga, Yogo &amp; Partners Advocates welcomes applications from Kenya School of Law
+            graduates, legal clerks, and advocates interested in litigation and conveyancing practice
+            in Nakuru.
+          </p>
+        </div>
+
+        <div className="md:col-span-5">
+          <div className="relative h-48 rounded-lg overflow-hidden border border-[#E4DFD5]">
+            <Image
+              src={APPROVED_IMAGES.legalLibrary.src}
+              alt={APPROVED_IMAGES.legalLibrary.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
 
       <section className="space-y-4">

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Lock, FileText } from "lucide-react";
 import { SITE_DISCLAIMER } from "@/lib/compliance";
+import { APPROVED_IMAGES } from "@/lib/images";
 import { TrackedWhatsAppButton, TrackedCallButton } from "@/components/TrackedLinks";
 
 export const metadata: Metadata = {
@@ -44,17 +46,31 @@ const WORKFLOW_STEPS = [
 export default function HowWeWorkPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-12 space-y-10">
-      <div className="space-y-4 border-b border-[#E4DFD5] pb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6E5525]">
-          Client Intake &amp; Engagement
-        </p>
-        <h1 className="font-serif text-3xl sm:text-4xl font-medium text-[#102430]">
-          How we work with clients
-        </h1>
-        <p className="text-base text-[#3D5260] max-w-3xl leading-relaxed">
-          From your first enquiry to formal engagement, every step follows a structured process
-          designed to protect your confidentiality and give you clarity on procedure and fees.
-        </p>
+      <div className="grid gap-8 md:grid-cols-12 items-center border-b border-[#E4DFD5] pb-8">
+        <div className="md:col-span-7 space-y-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6E5525]">
+            Client Intake &amp; Engagement
+          </p>
+          <h1 className="font-serif text-3xl sm:text-4xl font-medium text-[#102430]">
+            How we work with clients
+          </h1>
+          <p className="text-base text-[#3D5260] leading-relaxed">
+            From your first enquiry to formal engagement, every step follows a structured process
+            designed to protect your confidentiality and give you clarity on procedure and fees.
+          </p>
+        </div>
+
+        <div className="md:col-span-5">
+          <div className="relative h-52 rounded-lg overflow-hidden border border-[#E4DFD5]">
+            <Image
+              src={APPROVED_IMAGES.consultationRoom.src}
+              alt={APPROVED_IMAGES.consultationRoom.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="space-y-4">

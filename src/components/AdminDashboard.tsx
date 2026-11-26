@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { APPROVED_IMAGES } from "@/lib/images";
 import {
   ShieldCheck,
   AlertTriangle,
@@ -1090,6 +1092,37 @@ export function AdminDashboard() {
                       <strong className="text-[#102430]">{item.rule}:</strong> {item.label}
                     </span>
                   </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-lg border border-[#E4DFD5] bg-white p-6 space-y-3">
+              <h3 className="text-sm font-semibold text-[#102430]">
+                CP-2 Approved Image Library
+              </h3>
+              <p className="text-xs text-[#5B6D78]">
+                Restricted to Office, Nakuru, and Legal Library categories. Portrait uploads are
+                disabled per Rule 5(2)(b).
+              </p>
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
+                {Object.values(APPROVED_IMAGES).map((img) => (
+                  <div
+                    key={img.src}
+                    className="rounded border border-[#E4DFD5] overflow-hidden bg-[#FAF8F4]"
+                  >
+                    <div className="relative h-20 w-full">
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="180px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <p className="px-2 py-1 text-[10px] font-semibold text-[#102430] truncate">
+                      {img.category} · {img.src.replace("/images/", "")}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>
